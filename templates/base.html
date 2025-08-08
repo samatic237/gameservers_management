@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Game Servers Management{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+</head>
+<!-- Модальное окно подтверждения удаления -->
+<div class="modal fade" id="deleteServerModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Подтверждение удаления</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p>Вы действительно хотите удалить сервер <span id="serverName"></span>?</p>
+                <p class="text-danger">Это действие нельзя отменить!</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+                <form id="deleteServerForm" method="POST">
+                    <button type="submit" class="btn btn-danger">Удалить</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<body>
+    <header class="site-header">
+        <div class="header-container">
+            <a href="{{ url_for('index') }}" class="logo-link">
+                <img src="/static/images/logo_1024x.png" 
+                     alt="Логотип Game Servers" 
+                     class="logo"
+                     width="80" height="80">
+            </a>
+            <h1 class="site-title">Game Servers Management</h1>
+            <nav>
+                <!-- Ваше существующее меню без изменений -->
+                <a href="{{ url_for('index') }}">Главная</a>
+                <a href="{{ url_for('about') }}">О серверной</a>
+                <a href="{{ url_for('register') }}">Регистрация</a>
+                {% if session.get('is_admin') %}
+                    <a href="{{ url_for('admin') }}">Админка</a>
+                {% endif %}
+            </nav>
+        </div>
+    </header>
+    
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+    
+    <footer>
+        <canvas class="star-canvas"></canvas>
+        <div class="footer-content">
+            <p><b>SAMATIC Servers</b></p>
+            <p><small>Работает бесплатно, но вы можете поддержать меня</small></p>
+        </div>
+    </footer>
+    <script src='/static/js/star_anim.js'></script>
+    <script src="{{ url_for('static', filename='js/chart.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Bootstrap 5 JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    {% block scripts %}{% endblock %}
+</body>
+</html>

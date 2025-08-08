@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Мониторинг серверов</h2>
+
+<div class="server-controls">
+    <label for="server-select">Выберите сервер:</label>
+    <select id="server-select" onchange="updateChart()">
+        {% for server in servers %}
+        <option value="{{ server.id }}">{{ server.purpose }} ({{ server.ip_address }})</option>
+        {% endfor %}
+    </select>
+</div>
+
+<div class="chart-container">
+    <canvas id="load-chart"></canvas>
+</div>
+
+<div class="server-status">
+    <h3>Текущая нагрузка серверов:</h3>
+    <ul>
+        {% for server in servers %}
+        <li>
+            <p>Статус: 
+            <span id="server-status-{{ server.id }}" 
+              data-available="{{ server.is_available }}"
+              class="{% if server.is_available %}status-available{% else %}status-unavailable{% endif %}">
+            {% if server.is_available %}Доступен{% else %}Недоступен{% endif %}
+            </span>
+            </p>
+            {{ server.purpose }} ({{ server.ip_address }}): 
+            <span class="load-value">{{ server.current_load }}%</span>
+            <div class="load-bar">
+                <div class="{% if server.is_available %}load-fill-a{% else %}load-fill-u{% endif %}" style="width: {{ server.current_load }}%"></div>
+            </div>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="/static/js/chart.js"></script>
+{% endblock %}

@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block title %}Регистрация на сервер{% endblock %}
+
+{% block content %}
+<div class="registration-limits">
+    <p>Лимиты заявок:</p>
+    <ul>
+        <li>Не более {{ config.REGISTRATION_LIMITS.MAX_REQUESTS_PER_DAY }} в сутки</li>
+        <li>Не чаще чем раз в {{ config.REGISTRATION_LIMITS.MIN_SECONDS_BETWEEN // 60 }} минут</li>
+    </ul>
+</div>
+
+<style>
+.registration-limits {
+    background: #f8f9fa;
+    border-left: 4px solid #6c757d;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 0 4px 4px 0;
+}
+.registration-limits ul {
+    margin-bottom: 0;
+}
+</style>
+{% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category }} alert-dismissible fade show">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+<h2>Регистрация на игровой сервер</h2>
+
+<form method="POST" action="{{ url_for('register') }}">
+    <div class="form-group">
+        <label for="nickname">Ваш никнейм:</label>
+        <input type="text" id="nickname" name="nickname" required>
+    </div>
+    
+    <div class="form-group">
+        <label for="server_id">Выберите сервер:</label>
+        <select id="server_id" name="server_id" required>
+            <option value="">-- Выберите сервер --</option>
+            {% for server in servers %}
+            <option value="{{ server['id'] }}">{{ server['purpose'] }} ({{ server['ip_address'] }})</option>
+            {% endfor %}
+        </select>
+    </div>
+    
+    <button type="submit">Зарегистрироваться</button>
+</form>
+{% endblock %}

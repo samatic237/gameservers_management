@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block title %}О серверах{% endblock %}
+
+{% block content %}
+<!--тута надо накидать статейку о серверной-->
+<h1>О серверах</h1>
+<br>
+<p>Используется новейшее оборудование 2017г, сеть 100мбит/с <br>
+Более 3ТБ дискового пространства, 4 ядерные процессоры, мощность 1КВт</p>
+<br>
+<img src="/static/images/servers_1.jpg" alt="тута фотка серверов">
+<h2>О планах на будущее</h2>
+<div class="accordion" id="accordionExample">
+  <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+        планируется:
+      </button>
+    </h2>
+    <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        <ol>
+            <li>купить мощный сервер 44 ядра 88 потоков, 512гб RAM, rx 580 ,4 tb m2 + 10tb HDD</li>
+            <li>обновить инфраструктуру до 2.5Гбит/сек</li>
+            <li>прокинуть оптоволокно</li>
+            <li>разобрать эту пизанскую башню и сделать стойку из констр. алюминия</li>
+            
+        </ol>
+      </div>
+    </div>
+  </div>
+  <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+         сделано
+      </button>
+    </h2>
+    <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        <ol>
+        <li><div class="text-bg-success">сделать логотип (сделано) <br><img src="/static/images/logo_1024x.png" 
+                     alt="Логотип Game Servers" 
+                     width="500" height="500"></div></li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
